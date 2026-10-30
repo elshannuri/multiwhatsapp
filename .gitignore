@@ -1,0 +1,13 @@
+# Asılılıqlar
+node_modules/
+
+# Build çıxışı (EXE-lər GitHub-un 100MB limitini keçir)
+dist/
+
+# Lokal istifadəçi məlumatları
+data/
+
+# Loqlar və debug artefaktları
+*.log
+_dbg3.json
+_debug_dom.js

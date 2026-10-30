@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi WhatsApp</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <div class="sidebarHeader">
+        <span data-i18n="profiles">Profiles</span>
+        <div class="sidebarHeaderActions">
+          <button id="addProfileBtn" data-i18n-title="newProfile" title="New profile">+</button>
+          <button id="langToggleBtn" data-i18n-title="language" title="Language">EN</button>
+          <button id="toggleProfilesBtn" data-i18n-title="hidePanel" title="Hide panel">«</button>
+        </div>
+      </div>
+      <ul id="profileList"></ul>
+    </aside>
+    <div id="resizeHandle" data-i18n-title="resizeHandle" title="Change width"></div>
+    <main id="main">
+      <div id="emptyState" data-i18n="emptyState">Add a profile or select one from the left</div>
+      <div id="webviewContainer"></div>
+    </main>
+  </div>
+
+  <div id="modalOverlay" class="modalOverlay hidden">
+    <div class="modalBox">
+      <div id="modalTitle"></div>
+      <div id="modalText" class="modalText hidden"></div>
+      <input id="modalInput" type="text" class="modalInput hidden" autocomplete="off" />
+      <div class="modalButtons">
+        <button id="modalCancel" class="btn" data-i18n="cancel">Cancel</button>
+        <button id="modalOk" class="btn primary" data-i18n="ok">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="translations.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

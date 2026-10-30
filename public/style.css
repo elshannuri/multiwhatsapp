@@ -1,0 +1,155 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0f1419;
+  --panel: #1f2c34;
+  --panel2: #111b21;
+  --accent: #00a884;
+  --text: #e9edef;
+  --muted: #8696a0;
+  --border: #2a3942;
+}
+
+html, body { height: 100%; }
+
+body {
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  overflow: hidden;
+}
+
+#app { display: flex; height: 100vh; }
+
+/* ----- Sidebar ----- */
+#sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--panel2);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  transition: width 0.2s ease;
+}
+#sidebar.collapsed { width: 52px; }
+#sidebar.collapsed .sidebarHeader span,
+#sidebar.collapsed #addProfileBtn,
+#sidebar.collapsed #langToggleBtn,
+#sidebar.collapsed #profileList { display: none; }
+#sidebar.collapsed .sidebarHeader { justify-content: center; padding: 14px 0; }
+
+#resizeHandle {
+  width: 5px;
+  flex-shrink: 0;
+  cursor: col-resize;
+  background: transparent;
+  transition: background 0.15s;
+}
+#resizeHandle:hover, #resizeHandle.dragging { background: var(--accent); }
+
+body.resizing { cursor: col-resize; user-select: none; }
+body.resizing webview { pointer-events: none; }
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  font-weight: 600;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+.sidebarHeaderActions { display: flex; align-items: center; gap: 4px; }
+.sidebarHeader button {
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 1;
+}
+.sidebarHeader button:hover { background: rgba(255,255,255,0.08); }
+
+#profileList { list-style: none; overflow-y: auto; flex: 1; }
+#profileList li {
+  padding: 14px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+#profileList li:hover { background: var(--panel); }
+#profileList li.active { background: var(--panel); }
+#profileList li.dragging { opacity: 0.4; }
+#profileList li.drop-before { box-shadow: inset 0 2px 0 var(--accent); }
+#profileList li.drop-after { box-shadow: inset 0 -2px 0 var(--accent); }
+
+.profileInfo { flex: 1; min-width: 0; }
+.profileName {
+  font-weight: 600; font-size: 14px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.profileSub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+.profileActions { display: flex; gap: 2px; opacity: 0.4; }
+.profileActions:hover { opacity: 1; }
+.profileActions button {
+  background: transparent; border: none; color: var(--muted);
+  cursor: pointer; font-size: 14px; padding: 2px 4px; border-radius: 4px;
+}
+.profileActions button:hover { color: #e53935; }
+
+/* ----- Main / webview ----- */
+#main { flex: 1; position: relative; min-width: 0; }
+
+#emptyState {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); font-size: 15px;
+}
+
+#webviewContainer { position: absolute; inset: 0; }
+
+webview {
+  position: absolute;
+  top: 0;
+  left: -10000px;   /* qeyri-aktiv webview-ları off-screen saxla (sleep olmasın deyə) */
+  width: 100%;
+  height: 100%;
+}
+webview.active { left: 0; }
+
+.hidden { display: none !important; }
+
+/* ----- Modal ----- */
+.modalOverlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+}
+.modalBox {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; width: 320px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.5);
+}
+#modalTitle { font-weight: 600; font-size: 15px; margin-bottom: 12px; }
+.modalText { color: var(--muted); font-size: 13px; margin-bottom: 12px; line-height: 1.5; }
+.modalInput {
+  width: 100%; background: var(--panel2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 9px 10px; color: var(--text); outline: none;
+  margin-bottom: 12px;
+}
+.modalInput:focus { border-color: var(--accent); }
+.modalButtons { display: flex; justify-content: flex-end; gap: 8px; }
+.btn {
+  background: transparent; border: 1px solid var(--border); color: var(--text);
+  border-radius: 8px; padding: 8px 16px; cursor: pointer; font-size: 13px;
+}
+.btn:hover { background: rgba(255,255,255,0.06); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.primary:hover { background: #00b894; }

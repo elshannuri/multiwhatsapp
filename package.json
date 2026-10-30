@@ -1,0 +1,46 @@
+{
+  "name": "multi-whatsapp",
+  "version": "2.1.0",
+  "description": "Çox profilli WhatsApp Web klienti (Electron + rəsmi WhatsApp Web)",
+  "author": "Elşən Nuri <elshann999@gmail.com>",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win"
+  },
+  "devDependencies": {
+    "electron": "^45.0.0",
+    "electron-builder": "^26.18.0"
+  },
+  "build": {
+    "appId": "com.elshan.multiwhatsapp",
+    "productName": "Multi WhatsApp",
+    "copyright": "Müəllif: Elşən Nuri — Əlaqə: elshann999@gmail.com",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "public/**/*",
+      "icon.png"
+    ],
+    "win": {
+      "target": [
+        "portable",
+        "nsis"
+      ],
+      "icon": "icon.ico"
+    },
+    "portable": {
+      "artifactName": "MultiWhatsApp.exe"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "artifactName": "MultiWhatsApp-Setup-${version}.exe"
+    }
+  }
+}
