@@ -11,3 +11,6 @@ data/
 *.log
 _dbg3.json
 _debug_dom.js
+
+# Lokal saxlanılan (repo-ya yüklənmir)
+CLAUDE.md
